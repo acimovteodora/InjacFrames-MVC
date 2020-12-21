@@ -1,0 +1,51 @@
+﻿@model MVCApp.Models.Lajsna
+@ViewBag.Types
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Izmena lajsne</h1>
+
+<h4>Lajsna</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NazivLajsne" class="control-label"></label>
+                <input asp-for="NazivLajsne" class="form-control" />
+                <span asp-validation-for="NazivLajsne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NazivTipa" class="control-label"></label>
+                <input asp-for="NazivTipa" class="form-control" />
+                <span asp-validation-for="NazivTipa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrenutnaCena" class="control-label"></label>
+                <input asp-for="TrenutnaCena" class="form-control" />
+                <span asp-validation-for="TrenutnaCena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipLajsne.Id" class="control-label"></label>
+                @*<input asp-for="TipLajsne.Id" class="form-control" />*@
+                @*@Html.DropDownList("Sifra tipa lajsne", new SelectList(ViewBag.Types, "Id", "Id"))*@
+                @Html.DropDownListFor(model => model.TipLajsne.Id, (IEnumerable<SelectListItem>)ViewBag.Types, new { @class = "form-control" })
+                <span asp-validation-for="TipLajsne.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Nazad na listu lajsni</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
