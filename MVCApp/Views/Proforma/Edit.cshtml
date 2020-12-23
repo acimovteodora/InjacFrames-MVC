@@ -1,0 +1,112 @@
+﻿@model MVCApp.Models.Proforma
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Izmena proforme</h1>
+
+@*<h4>Proforma</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Porudzbina.Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Zaposleni.Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Racun.Banka.Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label"></label>
+                <input asp-for="Datum" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Popust" class="control-label"></label>
+                <input asp-for="Popust" class="form-control" />
+                <span asp-validation-for="Popust" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UkupnaCena" class="control-label"></label>
+                <input asp-for="UkupnaCena" class="form-control" />
+                <span asp-validation-for="UkupnaCena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NacinIsporuke.NazivIsporuke" class="control-label"></label>
+                @Html.DropDownListFor(model => model.NacinIsporuke.Id, (IEnumerable<SelectListItem>)ViewBag.Isporuke, new { @class = "form-control" })
+                <span asp-validation-for="NacinIsporuke.NazivIsporuke" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Racun.Vrednost" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Racun.Id, (IEnumerable<SelectListItem>)ViewBag.Racuni, new { @class = "form-control" })
+                <span asp-validation-for="Racun.Vrednost" class="text-danger"></span>
+            </div>
+
+            <hr />
+            <div class="form-group">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Rbr.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NovaStavka.Kolicina)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NovaStavka.Lajsna.NazivLajsne)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @Html.ActionLink("Dodaj stavku", "Create", "StavkaProforme", new { id = Model.Id })
+                        @if (Model.Stavke != null)
+                        {
+                            @for (int i = 0; i < Model.Stavke.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @(i+1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Stavke[i].Kolicina)
+                                        @Html.HiddenFor(modelItem => Model.Stavke[i].Kolicina)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Stavke[i].Lajsna.NazivLajsne)
+                                        @Html.HiddenFor(modelItem => Model.Stavke[i].Lajsna.NazivLajsne)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Izmeni", "Edit", "StavkaProforme", new { id = Model.Stavke[i].RedniBroj }) |
+                                        @Html.ActionLink("Obrisi", "Delete", "StavkaProforme", new { id = Model.Stavke[i].RedniBroj })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <input type="submit" value="Sacuvaj izmene" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<div>
+    <a asp-action="Index">Odustani</a>
+</div>
+

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MVCApp.Models.NalogZaUtovar>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Nalozi za utovar</h1>
+
+<hr />
+<p>
+    <a asp-action="Create">Kreiraj novi nalog</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumUtovara)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CenaTransporta)
+            </th>
+            <th>
+                Prevoznik
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Porudzbina.DatumPoruzbine)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumUtovara)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CenaTransporta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prevoznik.NazivKompanije)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Porudzbina.DatumPoruzbine)
+                </td>
+                <td>
+                    @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalji utovara", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Obriši", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

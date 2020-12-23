@@ -22,7 +22,7 @@ namespace MVCApp.DataAccessLayer
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                Lajsna lajsna = _broker.ReturnObject(objekat) as Lajsna;
+                Lajsna lajsna = _broker.SelectObject(objekat) as Lajsna;
                 List<Cena> cene = _broker.ReturnByCriteria($"WHERE SifraLajsne={lajsna.Id}", new Cena()).OfType<Cena>().ToList();
 
                 foreach (var cena in cene)
@@ -52,13 +52,13 @@ namespace MVCApp.DataAccessLayer
             }
         }
 
-        public List<Lajsna> ReturnAll(Lajsna objekat)
+        public List<Lajsna> SelectAll(Lajsna objekat)
         {
             try
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                List<Lajsna> list = _broker.ReturnAll(objekat).OfType<Lajsna>().ToList();
+                List<Lajsna> list = _broker.SelectAll(objekat).OfType<Lajsna>().ToList();
                 _broker.Commit();
                 return list;
             }
@@ -80,7 +80,7 @@ namespace MVCApp.DataAccessLayer
             }
         }
 
-        public List<Lajsna> ReturnByCriteria(string criteria, Lajsna objekat)
+        public List<Lajsna> SelectByCriteria(string criteria, Lajsna objekat)
         {
             try
             {
@@ -108,43 +108,15 @@ namespace MVCApp.DataAccessLayer
             }
         }
 
-        public Lajsna ReturnObject(Lajsna objekat)
+        public Lajsna SelectObject(Lajsna objekat)
         {
             try
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                Lajsna lajsna = _broker.ReturnObject(objekat) as Lajsna;
+                Lajsna lajsna = _broker.SelectObject(objekat) as Lajsna;
                 _broker.Commit();
                 return lajsna;
-            }
-            catch (SqlException ex)
-            {
-                Debug.Write(">>>>>>>> " + ex.Message);
-                _broker.Rollback();
-                throw new Exception(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(">>>> " + ex.Message);
-                _broker.Rollback();
-                throw new Exception(ex.Message);
-            }
-            finally
-            {
-                _broker.CloseConnection();
-            }
-        }
-
-        public List<TipLajsne> GetTipoviLajsni()
-        {
-            try
-            {
-                _broker.OpenConnection();
-                _broker.BeginTransaction();
-                List<TipLajsne> types =_broker.ReturnAll(new TipLajsne()).OfType<TipLajsne>().ToList();
-                _broker.Commit();
-                return types;
             }
             catch (SqlException ex)
             {
@@ -170,7 +142,7 @@ namespace MVCApp.DataAccessLayer
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                Lajsna fromDb = _broker.ReturnObject(objekat) as Lajsna;
+                Lajsna fromDb = _broker.SelectObject(objekat) as Lajsna;
                 string values = null;
                 if(fromDb.TrenutnaCena != objekat.TrenutnaCena && fromDb.NazivTipa != objekat.NazivTipa)
                 {
@@ -201,6 +173,83 @@ namespace MVCApp.DataAccessLayer
                 Debug.WriteLine(">>>> " + ex.Message);
                 _broker.Rollback();
                 return false;
+            }
+            finally
+            {
+                _broker.CloseConnection();
+            }
+        }
+
+        public List<TipLajsne> GetTipoviLajsni()
+        {
+            try
+            {
+                _broker.OpenConnection();
+                _broker.BeginTransaction();
+                List<TipLajsne> types = _broker.SelectAll(new TipLajsne()).OfType<TipLajsne>().ToList();
+                _broker.Commit();
+                return types;
+            }
+            catch (SqlException ex)
+            {
+                Debug.Write(">>>>>>>> " + ex.Message);
+                _broker.Rollback();
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>> " + ex.Message);
+                _broker.Rollback();
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                _broker.CloseConnection();
+            }
+        }
+
+        public bool CreateObject(Lajsna objekat)
+        {
+            try
+            {
+                _broker.OpenConnection();
+                _broker.BeginTransaction();
+                objekat.TipLajsne = _broker.ReturnByCriteria($"WHERE NazivTipa LIKE '{objekat.TipLajsne.NazivTipa}'",objekat.TipLajsne).OfType<TipLajsne>().ToList().FirstOrDefault();
+                //string value = "";
+                //if (!string.IsNullOrEmpty(objekat.NazivTipa) && objekat.TrenutnaCena != null)
+                //{
+                //    value = $"NazivTipa='{objekat.NazivTipa}', TrenutnaCena={objekat.TrenutnaCena}";
+                //} else if(!string.IsNullOrEmpty(objekat.NazivTipa))
+                //{
+                //    value = $"NazivTipa='{objekat.NazivTipa}'";
+                //} else if(objekat.TrenutnaCena != null)
+                //{
+                //    value = $"TrenutnaCena={objekat.TrenutnaCena}";
+                //}
+                //if (!string.IsNullOrEmpty(value))
+                //{
+                //    if (!_broker.UpdateSpecific(objekat, value)) throw new Exception();
+                //}
+
+                if (objekat.TrenutnaCena != null)
+                {
+                    if (!_broker.InsertObjectSpecific(objekat, $" (NazivLajsne,UrlSLike,SifraTipa,TrenutnaCena) VALUES ('{objekat.NazivLajsne}',NULL,{objekat.TipLajsne.Id},{objekat.TrenutnaCena})")) throw new Exception();
+                }
+                else _broker.InsertObject(objekat);
+                _broker.Commit();
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                Debug.Write(">>>>>>>> " + ex.Message);
+                _broker.Rollback();
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>> " + ex.Message);
+                _broker.Rollback();
+                throw new Exception(ex.Message);
             }
             finally
             {

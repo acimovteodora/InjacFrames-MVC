@@ -1,0 +1,44 @@
+﻿@model MVCApp.Models.TipLajsne
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Izmena tipa lajsne</h1>
+
+@*<h4>Tip lajsne</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NazivTipa" class="control-label"></label>
+                <input asp-for="NazivTipa" class="form-control" />
+                <span asp-validation-for="NazivTipa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dimenzije.Duzina" class="control-label"></label>
+                <input asp-for="Dimenzije.Duzina" class="form-control" />
+                <span asp-validation-for="Dimenzije.Duzina" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dimenzije.Visina" class="control-label"></label>
+                <input asp-for="Dimenzije.Visina" class="form-control" />
+                <span asp-validation-for="Dimenzije.Visina" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sačuvaj izmene" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<div>
+    <a asp-action="Index">Odustani</a>
+</div>
+

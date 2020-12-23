@@ -1,0 +1,14 @@
+﻿@model MVCApp.Models.Error
+
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Greška.</h1>
+
+<p>
+    <h3>@Html.DisplayFor(model => model.Greska)</h3>
+</p>
+<div>
+    <a asp-action="Index">Nazad na listu porudžbinа</a>
+</div>

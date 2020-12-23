@@ -1,13 +1,11 @@
 ﻿@model MVCApp.Models.Lajsna
-@ViewBag.Types
-
 @{
     ViewData["Title"] = "Edit";
 }
 
 <h1>Izmena lajsne</h1>
 
-<h4>Lajsna</h4>
+@*<h4>Lajsna</h4>*@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -36,12 +34,13 @@
                 <span asp-validation-for="TipLajsne.Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Sačuvaj izmene" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
+<hr />
 <div>
     <a asp-action="Index">Nazad na listu lajsni</a>
 </div>

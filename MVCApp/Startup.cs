@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCApp.DataAccessLayer;
+using MVCApp.DataAccessLayer.Interfaces;
 using MVCApp.DatabaseBroker;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,14 @@ namespace MVCApp
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.Add(new ServiceDescriptor(typeof(Broker), new Broker(connectionString)));
             services.AddTransient<ILajsnaLogic, LajsnaLogic>();
+            services.AddTransient<ITipLajsneLogic, TipLajsneLogic>();
+            services.AddTransient<IAdresaLogic, AdresaLogic>();
+            services.AddTransient<IGradLogic, GradLogic>();
+            services.AddTransient<INalogLogic, NalogLogic>();
+            services.AddTransient<IPorudzbinaLogic, PorudzbinaLogic>();
+            services.AddTransient<IProformaLogic, ProformaLogic>();
+            services.AddTransient<IStavkaProformeLogic, StavkaProformeLogic>();
+            services.AddTransient<ICenaLogic, CenaLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

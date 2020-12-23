@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MVCApp.Models.Cena>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Aktuelne cene</h1>
+<hr/>
+<p>
+    <a asp-action="Create">Kreiraj novu cenu</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lajsna.NazivLajsne)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumOd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumDo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Iznos)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lajsna.NazivLajsne)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumOd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Iznos)
+            </td>
+            <td>
+                @Html.ActionLink("Izmeni", "Edit", new { id=item.Lajsna.Id }) |
+                @*@Html.ActionLink("Detalji", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Obrisi", "Delete", new { id=item.Lajsna.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

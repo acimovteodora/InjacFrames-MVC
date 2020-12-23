@@ -1,0 +1,80 @@
+﻿@model MVCApp.Models.NalogZaUtovar
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Izmena naloga za utovar</h1>
+
+@*<h4>NalogZaUtovar</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="BrojPaleta" class="control-label"></label>
+                <input asp-for="BrojPaleta" class="form-control" />
+                <span asp-validation-for="BrojPaleta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DimenzijePalete" class="control-label"></label>
+                <input asp-for="DimenzijePalete" class="form-control" />
+                <span asp-validation-for="DimenzijePalete" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NetoTezinaPalete" class="control-label"></label>
+                <input asp-for="NetoTezinaPalete" class="form-control" />
+                <span asp-validation-for="NetoTezinaPalete" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatumVremeUtovara" class="control-label"></label>
+                @*@Html.EditorFor(m => m.DatumVremeUtovara)*@
+                <input asp-for="DatumVremeUtovara" class="form-control" />
+                <span asp-validation-for="DatumVremeUtovara" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CenaTransporta" class="control-label"></label>
+                <input asp-for="CenaTransporta" class="form-control" />
+                <span asp-validation-for="CenaTransporta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Porudzbina.Id" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Porudzbina.Id, (IEnumerable<SelectListItem>)ViewBag.Porudzbine, new { @class = "form-control" })
+                <span asp-validation-for="Porudzbina.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prevoznik.NazivKompanije" class="control-label">Prevoznik</label>
+                @Html.DropDownListFor(model => model.Prevoznik.Id, (IEnumerable<SelectListItem>)ViewBag.Prevoznici, new { @class = "form-control" })
+                <span asp-validation-for="Prevoznik.NazivKompanije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarinikIzvoz.NazivKompanije" class="control-label">Izvoz</label>
+                @Html.DropDownListFor(model => model.CarinikIzvoz.Id, (IEnumerable<SelectListItem>)ViewBag.CariniciIzvoz, new { @class = "form-control" })
+                <span asp-validation-for="CarinikIzvoz.NazivKompanije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarinikUvoz.NazivKompanije" class="control-label">Uvoz</label>
+                @Html.DropDownListFor(model => model.CarinikUvoz.Id, (IEnumerable<SelectListItem>)ViewBag.CariniciUvoz, new { @class = "form-control" })
+                <span asp-validation-for="CarinikUvoz.NazivKompanije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Napomena" class="control-label"></label>
+                <input asp-for="Napomena" class="form-control" />
+                <span asp-validation-for="Napomena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sačuvaj izmene" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<div>
+    <a asp-action="Index">Odustani</a>
+</div>
+

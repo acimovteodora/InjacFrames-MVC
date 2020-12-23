@@ -1,0 +1,44 @@
+﻿@model MVCApp.Models.Grad
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Izmena grada</h1>
+
+@*<h4>Grad</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NazivGrada" class="control-label"></label>
+                <input asp-for="NazivGrada" class="form-control" />
+                <span asp-validation-for="NazivGrada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostanskiBroj" class="control-label"></label>
+                <input asp-for="PostanskiBroj" class="form-control" />
+                <span asp-validation-for="PostanskiBroj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Drzava.NazivDrzave" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Drzava.Id, (IEnumerable<SelectListItem>)ViewBag.Countries, new { @class = "form-control" })
+                <span asp-validation-for="Drzava.NazivDrzave" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sačuvaj izmene" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<div>
+    <a asp-action="Index">Lista gradova</a>
+</div>
+

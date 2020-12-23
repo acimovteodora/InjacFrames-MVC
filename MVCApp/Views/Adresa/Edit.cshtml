@@ -1,0 +1,54 @@
+﻿@model MVCApp.Models.Adresa
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Izmena adrese</h1>
+
+@*<h4>Adresa</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="SifraAdrese" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Broj" class="control-label"></label>
+                <input asp-for="Broj" class="form-control" />
+                <span asp-validation-for="Broj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NazivGrada" class="control-label"></label>
+                <input asp-for="NazivGrada" class="form-control" />
+                <span asp-validation-for="NazivGrada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grad.Id" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Grad.Id, (IEnumerable<SelectListItem>)ViewBag.Cities, new { @class = "form-control" })
+                <span asp-validation-for="Grad.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kompanija.NazivKompanije" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Kompanija.Id, (IEnumerable<SelectListItem>)ViewBag.Companies, new { @class = "form-control" })
+                <span asp-validation-for="Kompanija.NazivKompanije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sačuvaj izmene" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<div>
+    <a asp-action="Index">Odustani</a>
+</div>
+

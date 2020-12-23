@@ -1,0 +1,41 @@
+﻿@model MVCApp.Models.StavkaProforme
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Kreiranje stavke proforme</h1>
+
+@*<h4>StavkaProforme</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="RedniBroj" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Proforma.Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Kolicina" class="control-label"></label>
+                <input asp-for="Kolicina" class="form-control" />
+                <span asp-validation-for="Kolicina" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label ap-for="Lajsna.NazivLajsne" class="control-label">Lajsna</label>
+                @Html.DropDownList("Lajsna.NazivLajsne", new SelectList(ViewBag.Lajsne, "NazivLajsne", "NazivLajsne"))
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodaj stavku" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr/>
+<div>
+    <a asp-action="Index" asp-controller="Proforma">Odustani</a>
+</div>
+

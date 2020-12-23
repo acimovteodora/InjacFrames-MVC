@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MVCApp.Models.TipLajsne>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Tipovi lajsni</h1>
+
+<hr />
+<p>
+    <a asp-action="Create">Kreiraj novi tip lajsne</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NazivTipa)
+            </th>
+            <th>
+                Duzina
+            </th>
+            <th>
+                Visina
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NazivTipa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dimenzije.Duzina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dimenzije.Visina)
+                </td>
+                <td>
+                    @Html.ActionLink("Izmeni", "Edit", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+@Html.ActionLink("Nazad na pregled lajsni", "Index", "Lajsna")

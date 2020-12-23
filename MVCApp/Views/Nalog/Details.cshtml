@@ -1,0 +1,85 @@
+﻿@model MVCApp.Models.NalogZaUtovar
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalji naloga za utovar</h1>
+
+<div>
+    @*<h4>NalogZaUtovar</h4>*@
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Porudzbina.Klijent.NazivKompanije) klijent
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Porudzbina.Klijent.NazivKompanije)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BrojPaleta)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BrojPaleta)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DimenzijePalete)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DimenzijePalete)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NetoTezinaPalete)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NetoTezinaPalete)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumUtovara)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatumUtovara)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumVremeUtovara)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatumVremeUtovara.TimeOfDay)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CenaTransporta)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CenaTransporta)
+        </dd>
+        <dt class="col-sm-2">
+            Izvozni carinik
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarinikIzvoz.NazivKompanije)
+        </dd>
+        <dt class="col-sm-2">
+            Uvozni carinik
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarinikUvoz.NazivKompanije)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Napomena)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Napomena)
+        </dd>
+    </dl>
+</div>
+<div>
+    <hr />
+    @Html.ActionLink("Izmeni nalog", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Lista naloga za utovar</a>
+</div>

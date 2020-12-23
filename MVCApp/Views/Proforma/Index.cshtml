@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MVCApp.Models.Proforma>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Proforme</h1>
+
+@*<p>
+    <a asp-action="Create">Kreiraj novu proformu</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NacinIsporuke.NazivIsporuke)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Popust)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UkupnaCena)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <th>
+                @Html.DisplayFor(model => item.NacinIsporuke.NazivIsporuke)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Popust)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UkupnaCena)
+            </td>
+            <td>
+                @Html.ActionLink("Izmeni", "Edit", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<hr/>
+<p>
+    <a asp-action="CreateRacun">Kreiraj novi račun</a>
+</p>

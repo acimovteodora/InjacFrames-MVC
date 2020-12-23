@@ -10,7 +10,7 @@ namespace MVCApp.Models
 {
     public class TipLajsne: IDomainObject
     {
-        [DisplayName("Sifra tipa lajsne")]
+        [DisplayName("Šifra tipa lajsne")]
         public long Id { get; set; }
         [DisplayName("Naziv tipa lajsne")]
         public string NazivTipa { get; set; }
@@ -18,17 +18,21 @@ namespace MVCApp.Models
 
         public string TabelName => "TipLajsne";
 
-        public string InsertValue => "";
+        public string InsertColumns => "NazivTipa,Dimenzije";
+
+        public string InsertValue => $" VALUES ('{NazivTipa}','{Dimenzije}')";
 
         public string SearchCondition => $" WHERE SifraTipa = {Id}";
 
         public string ColumnNames => "SifraTipa,NazivTipa,Dimenzije";
 
-        public string SetColumnValues => $"NazivTipa = {NazivTipa}, Dimenzije='{Dimenzije.Duzina};{Dimenzije.Visina}'";
+        public string SetColumnValues => $"NazivTipa = '{NazivTipa}', Dimenzije='{Dimenzije}'";
 
-        public string IdColumn => "SifraTipa";
+        public string JoinSelect => throw new NotImplementedException();
 
-        int IDomainObject.Id => 0;
+        public string JoinTables => throw new NotImplementedException();
+
+        public string Identifikator => "SifraTipa";
 
         public List<IDomainObject> VratiListu(SqlDataReader reader)
         {
@@ -37,9 +41,11 @@ namespace MVCApp.Models
                 List<IDomainObject> types = new List<IDomainObject>();
                 while (reader.Read())
                 {
-                    TipLajsne type = new TipLajsne();
-                    type.Id = (long)reader[0];
-                    type.NazivTipa = reader[1].ToString();
+                    TipLajsne type = new TipLajsne
+                    {
+                        Id = (long)reader[0],
+                        NazivTipa = reader[1].ToString()
+                    };
                     string[] dimn = reader[2].ToString().Split(";");
                     type.Dimenzije = new Dimenzije() { Duzina = Convert.ToInt32(dimn[0]), Visina = Convert.ToInt32(dimn[1]) };
                     types.Add(type);
@@ -54,7 +60,23 @@ namespace MVCApp.Models
 
         public IDomainObject VratiObjekat(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            try
+            {
+                TipLajsne type = new TipLajsne();
+                while (reader.Read())
+                {
+                    type.Id = (long)reader[0];
+                    type.NazivTipa = reader[1].ToString();
+                    string[] dimn = reader[2].ToString().Split(";");
+                    type.Dimenzije = new Dimenzije() { Duzina = Convert.ToInt32(dimn[0]), Visina = Convert.ToInt32(dimn[1]) };
+                    break;
+                }
+                return type;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

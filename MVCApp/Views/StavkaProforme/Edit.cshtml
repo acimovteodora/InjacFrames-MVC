@@ -1,0 +1,40 @@
+﻿@model MVCApp.Models.StavkaProforme
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Izmena stavke proforme</h1>
+
+@*<h4>StavkaProforme</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="RedniBroj" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Kolicina" class="control-label"></label>
+                <input asp-for="Kolicina" class="form-control"/>
+                <span asp-validation-for="Kolicina" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lajsna.NazivLajsne" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Lajsna.Id, (IEnumerable<SelectListItem>)ViewBag.Lajsne, new { @class = "form-control", @readonly = "readonly" })
+                @*@Html.HiddenFor(model => model.Lajsna.Id)*@
+                @*<input asp-for="Lajsna.NazivLajsne" class="form-control" disabled />*@
+                <span asp-validation-for="Lajsna.NazivLajsne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Izmeni stavku" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Proforma">Odustani</a>
+</div>
+

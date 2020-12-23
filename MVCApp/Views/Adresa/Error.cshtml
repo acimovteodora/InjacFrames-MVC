@@ -1,0 +1,15 @@
+﻿@model MVCApp.Models.Error
+
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Greška.</h1>
+@*<h2 class="text-danger">Došlo je do greške prilikom obrade vašeg zahteva.</h2>*@
+
+<p>
+    <h2>@Html.DisplayFor(model => model.Greska)</h2>
+</p>
+<div>
+    <a asp-action="Index">Nazad na lokacije</a>
+</div>

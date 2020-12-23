@@ -8,11 +8,12 @@ namespace MVCApp.DataAccessLayer
 {
     public interface ILajsnaLogic
     {
-        List<Lajsna> ReturnAll(Lajsna objekat);
-        List<TipLajsne> GetTipoviLajsni();
-        Lajsna ReturnObject(Lajsna objekat);
+        List<Lajsna> SelectAll(Lajsna objekat);
+        Lajsna SelectObject(Lajsna objekat);
+        bool CreateObject(Lajsna objekat);
         bool UpdateObject(Lajsna objekat);
         int DeleteObject(Lajsna objekat);
-        List<Lajsna> ReturnByCriteria(string criteria, Lajsna objekat);
+        List<Lajsna> SelectByCriteria(string criteria, Lajsna objekat);
+        List<TipLajsne> GetTipoviLajsni();
     }
 }

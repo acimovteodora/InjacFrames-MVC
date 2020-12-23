@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MVCApp.Models.Grad>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Gradovi</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NazivGrada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostanskiBroj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Drzava.NazivDrzave)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NazivGrada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostanskiBroj)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Drzava.NazivDrzave)
+                </td>
+                <td>
+                    @Html.ActionLink("Izmeni", "Edit", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+@Html.ActionLink("Nazad na lokacije", "Index", "Adresa")

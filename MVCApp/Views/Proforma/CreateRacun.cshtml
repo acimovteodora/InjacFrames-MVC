@@ -1,0 +1,39 @@
+﻿@model MVCApp.Models.Racun
+
+@{
+    ViewData["Title"] = "CreateRacun";
+}
+
+<h1>Kreiraj novi racun</h1>
+
+@*<h4>Racun</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateRacun">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Vrednost" class="control-label">Broj racuna(18 brojeva)</label>
+                <input asp-for="Vrednost" class="form-control" />
+                <span asp-validation-for="Vrednost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Banka.Naziv" class="control-label"></label>
+                @Html.DropDownList("Banka.Naziv", new SelectList(ViewBag.Banks, "Naziv", "Naziv"))
+                @*<input asp-for="Banka.Naziv" class="form-control" />*@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kreiraj racun" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<div>
+    <a asp-action="Index">Odustani</a>
+</div>
+

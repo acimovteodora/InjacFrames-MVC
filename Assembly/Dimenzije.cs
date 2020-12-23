@@ -57,8 +57,7 @@ namespace Assembly
             {
                 Dimenzije dimenzije = new Dimenzije();
                 string str = Convert.ToString(s);
-                string[] a = null;
-                a = str.Split(new char[] { ';' });
+                string[] a = str.Split(new char[] { ';' });
                 int d1 = Convert.ToInt32(a[0]);
                 int v1 =  Convert.ToInt32(a[1]);
                 ValidateBroj(d1);

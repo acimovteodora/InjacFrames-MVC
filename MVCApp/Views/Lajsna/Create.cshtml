@@ -1,5 +1,4 @@
 ﻿@model MVCApp.Models.Lajsna
-@ViewBag.Types
 
 @{
     ViewData["Title"] = "Create";
@@ -7,17 +6,17 @@
 
 <h1>Kreiranje nove lajsne</h1>
 
-<h4>Lajsna</h4>
+@*<h4>Lajsna</h4>*@
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <label asp-for="NazivLajsne" class="control-label"></label>
                 <input asp-for="NazivLajsne" class="form-control" />
@@ -29,30 +28,26 @@
                 <span asp-validation-for="NazivTipa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UrlSlike" class="control-label"></label>
-                <input asp-for="UrlSlike" class="form-control" />
-                <span asp-validation-for="UrlSlike" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="TrenutnaCena" class="control-label"></label>
                 <input asp-for="TrenutnaCena" class="form-control" />
                 <span asp-validation-for="TrenutnaCena" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TipLajsne.Id" class="control-label"></label>
+                <label asp-for="TipLajsne.NazivTipa" class="control-label"></label>
                 @*<input asp-for="TipLajsne.Id" class="form-control" />*@
-                @Html.DropDownList("Sifra tipa lajsne", new SelectList(ViewBag.Types, "Id", "Id"))
-                <span asp-validation-for="TipLajsne.Id" class="text-danger"></span>
+                @Html.DropDownList("TipLajsne.NazivTipa", new SelectList(ViewBag.Types, "NazivTipa", "NazivTipa"))
+                <span asp-validation-for="TipLajsne.NazivTipa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Kreiraj" class="btn btn-primary" />
+                <input type="submit" value="Kreiraj lajsnu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
+<hr />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Odustani</a>
 </div>
 
 @section Scripts {

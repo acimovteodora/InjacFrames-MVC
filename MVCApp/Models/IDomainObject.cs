@@ -8,14 +8,16 @@ namespace MVCApp.Models
 {
     public interface IDomainObject
     {
+        string Identifikator { get; }
         string TabelName { get; }
+        string InsertColumns { get; }
         string InsertValue { get; }
-        string SearchCondition { get; }
         string ColumnNames { get; }
         string SetColumnValues { get; }
-        string IdColumn { get; }
-        int Id { get; }
+        string SearchCondition { get; }
         List<IDomainObject> VratiListu(SqlDataReader reader);
         IDomainObject VratiObjekat(SqlDataReader reader);
+        string JoinSelect { get; }
+        string JoinTables { get; }
     }
 }

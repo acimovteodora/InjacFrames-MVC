@@ -1,0 +1,115 @@
+﻿@model MVCApp.Models.Porudzbina
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Kreiraj porudžbinu</h1>
+
+@*<h4>Porudzbina</h4>*@
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Klijent.NazivKompanije" class="control-label"></label>
+                @Html.DropDownList("Klijent.NazivKompanije", new SelectList(ViewBag.Klijenti, "NazivKompanije", "NazivKompanije"))
+                <span asp-validation-for="Klijent.NazivKompanije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NacinPlacanja.NazivPlacanja" class="control-label"></label>
+                @Html.DropDownList("NacinPlacanja.NazivPlacanja", new SelectList(ViewBag.Placanja, "NazivPlacanja", "NazivPlacanja"))
+                <span asp-validation-for="NacinPlacanja.NazivPlacanja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NacinIsporuke.NazivIsporuke" class="control-label"></label>
+                @Html.DropDownList("NacinIsporuke.NazivIsporuke", new SelectList(ViewBag.Isporuke, "NazivIsporuke", "NazivIsporuke"))
+                <span asp-validation-for="NacinIsporuke.NazivIsporuke" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsloviIsporuke" class="control-label"></label>
+                <input asp-for="UsloviIsporuke" class="form-control" />
+                <span asp-validation-for="UsloviIsporuke" class="text-danger"></span>
+            </div>
+            <hr />
+            <fieldset>
+                <legend>Nova stavka</legend>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.NovaStavka.Kolicina)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.NovaStavka.Kolicina)
+                    @Html.ValidationMessageFor(model => model.NovaStavka.Kolicina)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.NovaStavka.Lajsna.NazivLajsne)
+                </div>
+                <div class="editor-field">
+                    <label class="control-label">Lajsna</label>
+                    @Html.DropDownList("NovaStavka.Lajsna.NazivLajsne", new SelectList(ViewBag.Lajsne, "NazivLajsne", "NazivLajsne"))
+                </div>
+
+                <p>
+                    <input type="submit" name="button" value="Dodaj stavku" />
+                </p>
+            </fieldset>
+
+            <hr />
+
+            <div class="form-group">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Rbr.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NovaStavka.Kolicina)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NovaStavka.Lajsna.NazivLajsne)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Stavke != null)
+                        {
+                            @for (int i = 0; i < Model.Stavke.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @(i+1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Stavke[i].Kolicina)
+                                        @Html.HiddenFor(modelItem => Model.Stavke[i].Kolicina)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Stavke[i].Lajsna.NazivLajsne)
+                                        @Html.HiddenFor(modelItem => Model.Stavke[i].Lajsna.NazivLajsne)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kreiraj porudžbinu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Odustani</a>
+</div>
+

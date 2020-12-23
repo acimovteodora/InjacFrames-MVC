@@ -1,24 +1,23 @@
 ﻿@model IEnumerable<MVCApp.Models.Lajsna>
-
 @{
     ViewData["Title"] = "Lista lajsni";
 }
 
-<h1>Index</h1>
+<h1>Lajsne</h1>
 
+<hr />
 <p>
     <a asp-action="Create">Kreiraj novu lajsnu</a>
 </p>
 
-
+<hr />
 @using (Html.BeginForm())
 {
     <p>
         Find by name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
+        <input type="submit" value="Pretraži lajsne" />
     </p>
 }
-
 <table class="table">
     <thead>
         <tr>
@@ -35,30 +34,47 @@
                 @Html.DisplayNameFor(model => model.TrenutnaCena)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NazivLajsne)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NazivTipa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrenutnaCena)
+            </td>
+            <td>
+                @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalji", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Obriši", "Delete", new { id = item.Id })
+            </td>
+            @if (item.TrenutnaCena == null || item.TrenutnaCena == 0)
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @Html.ActionLink("Dodaj cenu", "Create", "Cena", new { id = item.Id })
                 </td>
+            }
+            else
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.NazivLajsne)
+                    @Html.ActionLink("Izmeni cenu", "Edit", "Cena", new { id = item.Id }) |
+                    @Html.ActionLink("Obrisi cenu", "Delete", "Cena", new { id = item.Id })
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NazivTipa)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrenutnaCena)
-                </td>
-                <td>
-                    @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Detalji", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Obriši", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+            }
+        </tr>
         }
     </tbody>
 </table>
+
+<hr />
+@Html.ActionLink("Pregled svih tipova lajsni", "Index", "TipLajsne")

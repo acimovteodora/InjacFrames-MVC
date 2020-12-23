@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MVCApp.Models.Adresa>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Kompanije i adrese</h1>
+
+<hr />
+<p>
+    <a asp-action="Create">Kreiraj novu adresu kompanije</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SifraAdrese)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kompanija.NazivKompanije)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NazivGrada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Broj)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SifraAdrese)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kompanija.NazivKompanije)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NazivGrada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Broj)
+                </td>
+                <td>
+                    @Html.ActionLink("Izmeni", "Edit", new { id = item.SifraAdrese })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+@Html.ActionLink("Pregled svih gradova", "Index", "Grad")

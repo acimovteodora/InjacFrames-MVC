@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MVCApp.Models.Porudzbina>
+
+@{
+    ViewData["Title"] = "IndexUslovi";
+}
+
+<h1>Porudžbine sa specifičnim uslovima</h1>
+
+<hr />
+<p>
+    <a asp-action="Create">Kreiraj novu porudžbinu</a>
+</p>
+<hr />
+<p>
+    @Html.ActionLink("Prikazi sve", "Index", new { /*id = item.Id*/ }) <br />
+    @Html.ActionLink("Priži sa uslovima isporuke", "IndexUslovi", new { /**/ })
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumPoruzbine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Klijent.NazivKompanije)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NacinPlacanja.NazivPlacanja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NacinIsporuke.NazivIsporuke)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsloviIsporuke)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumPoruzbine)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Klijent.NazivKompanije)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NacinPlacanja.NazivPlacanja)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NacinIsporuke.NazivIsporuke)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsloviIsporuke)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
