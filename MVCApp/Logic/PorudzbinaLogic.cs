@@ -1,4 +1,4 @@
-﻿using MVCApp.DataAccessLayer.Interfaces;
+﻿using MVCApp.Logic.Interfaces;
 using MVCApp.DatabaseBroker;
 using MVCApp.Models;
 using System;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCApp.DataAccessLayer
+namespace MVCApp.Logic
 {
     public class PorudzbinaLogic : IPorudzbinaLogic
     {

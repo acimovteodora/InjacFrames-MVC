@@ -1,4 +1,4 @@
-﻿using MVCApp.DataAccessLayer.Interfaces;
+﻿using MVCApp.Logic.Interfaces;
 using MVCApp.DatabaseBroker;
 using MVCApp.Models;
 using System;
@@ -8,23 +8,51 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCApp.DataAccessLayer
+namespace MVCApp.Logic
 {
-    public class GradLogic : IGradLogic
+    public class TipLajsneLogic : ITipLajsneLogic
     {
         private readonly Broker _broker;
-        public GradLogic(Broker broker)
+        public TipLajsneLogic(Broker broker)
         {
             _broker = broker;
         }
 
-        public List<Drzava> GetCountries()
+        public bool CreateObject(TipLajsne objekat)
         {
             try
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                List<Drzava> list = _broker.SelectAll(new Drzava()).OfType<Drzava>().ToList();
+                _broker.InsertObject(objekat);
+                _broker.Commit();
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                Debug.Write(">>>>>>>> " + ex.Message);
+                _broker.Rollback();
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>> " + ex.Message);
+                _broker.Rollback();
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                _broker.CloseConnection();
+            }
+        }
+
+        public List<TipLajsne> SelectAll(TipLajsne objekat)
+        {
+            try
+            {
+                _broker.OpenConnection();
+                _broker.BeginTransaction();
+                List<TipLajsne> list = _broker.SelectAll(objekat).OfType<TipLajsne>().ToList();
                 _broker.Commit();
                 return list;
             }
@@ -46,15 +74,15 @@ namespace MVCApp.DataAccessLayer
             }
         }
 
-        public List<Grad> SelectAll(Grad objekat)
+        public TipLajsne SelectObject(TipLajsne objekat)
         {
             try
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                List<Grad> list = _broker.SelectAllJoin(objekat).OfType<Grad>().ToList();
+                TipLajsne tipLajsne = _broker.SelectObject(objekat) as TipLajsne;
                 _broker.Commit();
-                return list;
+                return tipLajsne;
             }
             catch (SqlException ex)
             {
@@ -74,41 +102,13 @@ namespace MVCApp.DataAccessLayer
             }
         }
 
-        public Grad SelectObject(Grad objekat)
+        public bool UpdateObject(TipLajsne objekat)
         {
             try
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                Grad grad = _broker.SelectObject(objekat) as Grad;
-                _broker.Commit();
-                return grad;
-            }
-            catch (SqlException ex)
-            {
-                Debug.Write(">>>>>>>> " + ex.Message);
-                _broker.Rollback();
-                throw new Exception(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(">>>> " + ex.Message);
-                _broker.Rollback();
-                throw new Exception(ex.Message);
-            }
-            finally
-            {
-                _broker.CloseConnection();
-            }
-        }
-
-        public bool UpdateObject(Grad objekat)
-        {
-            try
-            {
-                _broker.OpenConnection();
-                _broker.BeginTransaction();
-                Grad fromDb = _broker.SelectObject(objekat) as Grad;
+                TipLajsne fromDb = _broker.SelectObject(objekat) as TipLajsne;
                 if (!_broker.UpdateObject(objekat))
                 {
                     throw new Exception();

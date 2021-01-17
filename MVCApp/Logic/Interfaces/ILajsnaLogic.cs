@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCApp.DataAccessLayer
+namespace MVCApp.Logic.Interfaces
 {
     public interface ILajsnaLogic
     {

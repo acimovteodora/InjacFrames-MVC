@@ -1,4 +1,5 @@
-﻿using MVCApp.DatabaseBroker;
+﻿using MVCApp.Logic.Interfaces;
+using MVCApp.DatabaseBroker;
 using MVCApp.Models;
 using System;
 using System.Collections.Generic;
@@ -7,22 +8,22 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCApp.DataAccessLayer.Interfaces
+namespace MVCApp.Logic
 {
-    public class StavkaProformeLogic : IStavkaProformeLogic
+    public class CenaLogic : ICenaLogic
     {
         private readonly Broker _broker;
-        public StavkaProformeLogic(Broker broker)
+        public CenaLogic(Broker broker)
         {
             _broker = broker;
         }
-        public bool CreateObject(StavkaProforme objekat)
+        public bool CreateObject(Cena objekat)
         {
             try
             {
+                objekat.DatumDo = null;
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                objekat.Lajsna = _broker.ReturnByCriteria($"WHERE NazivLajsne LIKE '{objekat.Lajsna.NazivLajsne}'", objekat.Lajsna).OfType<Lajsna>().ToList().FirstOrDefault();
                 _broker.InsertObject(objekat);
                 _broker.Commit();
                 return true;
@@ -45,13 +46,13 @@ namespace MVCApp.DataAccessLayer.Interfaces
             }
         }
 
-        public bool DeleteObject(StavkaProforme objekat)
+        public bool DeleteObject(Cena objekat)
         {
             try
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                _broker.DeleteObject(objekat);
+                _broker.DeleteObjectCriteria($"WHERE SifraLajsne={objekat.Lajsna.Id} and DatumDo is null",objekat);
                 _broker.Commit();
                 return true;
             }
@@ -100,15 +101,15 @@ namespace MVCApp.DataAccessLayer.Interfaces
             }
         }
 
-        public StavkaProforme SelectObject(StavkaProforme objekat)
+        public List<Cena> SelectAll(Cena objekat)
         {
             try
             {
                 _broker.OpenConnection();
                 _broker.BeginTransaction();
-                StavkaProforme stavka = _broker.SelectObjectJoin(objekat) as StavkaProforme;
+                List<Cena> cene = _broker.ReturnByCriteriaJoin("WHERE DatumDo is null", objekat).OfType<Cena>().ToList();
                 _broker.Commit();
-                return stavka;
+                return cene;
             }
             catch (SqlException ex)
             {
@@ -128,7 +129,35 @@ namespace MVCApp.DataAccessLayer.Interfaces
             }
         }
 
-        public bool UpdateObject(StavkaProforme objekat)
+        public Cena SelectObject(Cena objekat)
+        {
+            try
+            {
+                _broker.OpenConnection();
+                _broker.BeginTransaction();
+                Cena cene = _broker.ReturnByCriteriaJoin($"WHERE c.SifraLajsne={objekat.Lajsna.Id} and c.DatumDo is null", objekat).OfType<Cena>().ToList().FirstOrDefault();
+                _broker.Commit();
+                return cene;
+            }
+            catch (SqlException ex)
+            {
+                Debug.Write(">>>>>>>> " + ex.Message);
+                _broker.Rollback();
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>> " + ex.Message);
+                _broker.Rollback();
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                _broker.CloseConnection();
+            }
+        }
+
+        public bool UpdateObject(Cena objekat)
         {
             try
             {

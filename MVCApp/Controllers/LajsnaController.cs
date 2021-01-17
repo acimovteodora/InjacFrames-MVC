@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MVCApp.DataAccessLayer;
+using MVCApp.Logic.Interfaces;
 using MVCApp.Models;
 using System;
 using System.Collections.Generic;

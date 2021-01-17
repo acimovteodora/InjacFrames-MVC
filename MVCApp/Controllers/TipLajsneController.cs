@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MVCApp.DataAccessLayer.Interfaces;
+using MVCApp.Logic.Interfaces;
 using MVCApp.Models;
 using System;
 using System.Collections.Generic;

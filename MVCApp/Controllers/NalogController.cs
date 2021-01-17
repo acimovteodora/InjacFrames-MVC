@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Primitives;
-using MVCApp.DataAccessLayer.Interfaces;
+using MVCApp.Logic.Interfaces;
 using MVCApp.Models;
 using System;
 using System.Collections.Generic;
